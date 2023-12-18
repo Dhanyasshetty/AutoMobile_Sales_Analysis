@@ -1,0 +1,77 @@
+SQL Query:
+select * from [Auto Sales data (1)];
+
+--Total Revenue
+select SUM(sales) as Total_Revenue 
+from [Auto Sales data (1)];   
+
+--Total Distint countries
+select COUNT(distinct country) as Total_Distinct_Countries
+from [Auto Sales data (1)];  
+
+--Total Products
+select COUNT(PRODUCTLINE) as total_products 
+from [Auto Sales data (1)];  
+
+--Total Distinct Cities
+select COUNT(distinct CITY) as Total_Distinct_Cities
+from [Auto Sales data (1)];  
+
+--Total Sales by Country
+select SUM(Sales) as Total_Sales,COUNTRY from [Auto Sales data (1)]
+group by COUNTRY
+order by Total_Sales desc;
+
+--Top 5 Customer Name by Sales
+SELECT TOP 5 
+  CUSTOMERNAME,
+  SUM(Sales) AS total_sales
+FROM
+  [Auto Sales data (1)]
+GROUP BY
+  CUSTOMERNAME
+ORDER BY
+  total_sales DESC;
+
+--Top 5 Cities by Sales
+SELECT TOP 5 
+  CITY,
+  SUM(Sales) AS total_sales
+FROM
+  [Auto Sales data (1)]
+GROUP BY
+  CITY
+ORDER BY
+  total_sales DESC;
+
+--Product by Total_Sales
+  select productline, COUNT(productline) as Count, SUM(sales) as Total_Sales
+  from [Auto Sales data (1)]
+  group by PRODUCTLINE
+  order by Total_Sales desc;
+
+-- Year by Sales
+SELECT YEAR(ORDERDATE) AS Eyear, productline,SUM(sales) as Total_Sales
+FROM [Auto Sales data (1)]
+group by YEAR(ORDERDATE), PRODUCTLINE
+order by YEAR(ORDERDATE) desc;
+
+--Quarter Sales
+SELECT
+    DATEPART(QUARTER,ORDERDATE) AS Quarter, SUM(sales) as Total_Sales
+FROM
+    [Auto Sales data (1)]
+	group by DATEPART(QUARTER,ORDERDATE);    
+
+--Monthly Sales
+SELECT
+    MONTH(ORDERDATE) AS Quarter, SUM(sales) as Total_Sales
+FROM
+    [Auto Sales data (1)]
+	group by MONTH(ORDERDATE);
+----OR
+SELECT
+    DATENAME(MONTH,ORDERDATE) AS Months, SUM(sales) as Total_Sales
+FROM
+    [Auto Sales data (1)]
+	group by DATENAME(MONTH,ORDERDATE);
